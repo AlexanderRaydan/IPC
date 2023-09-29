@@ -1,0 +1,56 @@
+////////////////////////////////////////////////////////////////////////////
+
+                              Reflection
+                             Workshop - #3
+
+Full Name  : Alexander David Raydan Gonzalez
+Student ID#: 124348236
+Email      : adraydan-gonzalez@myseneca.ca
+Section    : ZBB
+
+Authenticity Declaration:
+
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+
+///////////////////////////////////////////////////////////////////////////
+
+
+
+1. Determining the customer preference based on the number of servings to the available coffee bag weights
+required a more complex logical expression. Copy your submitted code for only this part of the logic,
+and explain the following:
+
+(((servingsPerDay >= 1 && servingsPerDay <= 4) && coffee1BagWeight == 250) ||
+((servingsPerDay >= 5 && servingsPerDay <= 9) && coffee1BagWeight == 500) ||
+((servingsPerDay >= 10) && coffee1BagWeight == 1000)),
+
+A) How many relational expressions did you use and identify each of them? : 8 
+
+B) How many logical expressions did you use and identify each of them? : 7
+
+2. Referring to Part-1 output #9, show how that logic can be coded in TWO correct ways, 
+one applying DeMorgan’s Law and the other way not using DeMorgan’s Law. Also, identify 
+what method you used in your submitted answer for Part-1.
+
+Using Morgan Law
+(product3Id != product1Id && product3Id != product1Id)
+
+Not using Morgan Law
+!(product3Id == product1Id | | product3Id == product1Id)
+
+
+3. Using the variables you used in Part-2, demonstrate two ways you can organize them,
+so it is optimized for easy-to-maintain code and contribute towards clarity in how data
+is stored in the program.
+
+One way to organize the variables is to indicate who is the “owner” of the data, for example, 
+we have 3 coffees (coffee 1, coffee 2 and coffee 3) and each coffee has a type, the variables that going to refer 
+the coffee type have to contain “coffee number” and “Type”  (coffee1Type) this same case with cream
+choice and bag weight (coffe1CreamChoice, coffee1BagWeight).
+
+Another way to organize the variables is to name the variables in camel case, the first letter
+starts in uppercase and split the words in uppercase. For example, if a need to create servings
+per day, the name in camel case is servingsPerDay, with this way, I can notice quietly that in 
+this variable there are 3 words.

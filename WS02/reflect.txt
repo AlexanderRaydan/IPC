@@ -1,0 +1,43 @@
+////////////////////////////////////////////////////////////////////////////
+
+                              Reflection
+                             Workshop - #2
+
+Full Name  : Alexander David Raydan Gonzalez
+Student ID#: 124348236
+Email      : adraydan-gonzalez@myseneca.ca
+Section    : ZBB
+
+Authenticity Declaration:
+
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+
+///////////////////////////////////////////////////////////////////////////
+
+
+The price1 represents a float and when you show the value 17.96 as a float, 
+the internal value in the variable is 17.959999. Then the program multiplies 
+price1 by 100, giving a result of 1795.9999 and finally, cast as an int, and 
+when we cast from double to int, the value is rounded down, giving a final 
+result 1795.
+
+The three examples work as intended because in this example all divisions have
+at least a double and are represented with the same format “%.2lf”.
+
+The variable “result” is initialized as an int with the value 7245 and then divided by 100, 
+the result of 2 integer numbers is another integer with the integer part of the result of the division.
+
+1. $0.00
+2. $72
+3. $0.00
+4. $72
+
+The sample 1 and 3 do not work because the variable result and money are integers 
+and if you print an integer number as a large float number, you will get 0.00 as a result.
+			
+
+
+
+touch abc.txt def.text hij.TxT1a4.txt 123.TXT 456.txt 6u9.txt ab2.html 1234.txt abcdef.txt abcde.tx
