@@ -80,7 +80,7 @@ int main(void)
 
         if (forecastQuantity < MIN_FORECAST_ITM_NUMBER || forecastQuantity > MAX_FORECAST_ITM_NUMBER)
         {
-            printf("ERROR: List is restricted to between %d and %d items.\n\n",
+            printf("ERROR: List is restricted to between %d and %d items.\n",
                    MIN_FORECAST_ITM_NUMBER, MAX_FORECAST_ITM_NUMBER);
             error = 1;
         }
@@ -153,7 +153,7 @@ int main(void)
                itemNumbers[i], itemPriorities[i], financeOptions[i], itemCosts[i]);
     }
 
-    printf("\n---- -------- -------- -----------\n");
+    printf("---- -------- -------- -----------\n");
     printf("                      $%11.2lf\n\n", totalCost);
     printf("Best of luck in all your future endeavours!\n\n");
     return 0;

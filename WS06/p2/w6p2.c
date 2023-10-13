@@ -153,8 +153,135 @@ int main(void)
                itemNumbers[i], itemPriorities[i], financeOptions[i], itemCosts[i]);
     }
 
-    printf("\n---- -------- -------- -----------\n");
-    printf("                      $%11.2lf\n\n", totalCost);
-    printf("Best of luck in all your future endeavours!\n\n");
+    printf("---- -------- -------- -----------\n");
+    printf("                      $%11.2lf\n", totalCost);
+
+    int selection = 0;
+    int priority = 0;
+
+    double totalMonthNumber = 0.0;
+    int yearNumber = 0;
+
+    int monthsRemaining = 0.0;
+    double filteredAmount = 0.0;
+
+    int showFinantialOptionNote = 0;
+
+    do
+    {
+        error = 0;
+        filteredAmount = 0.0;
+        showFinantialOptionNote = 0;
+
+        printf("\nHow do you want to forecast your wish list?\n");
+        printf(" 1. All items (no filter)\n");
+        printf(" 2. By priority\n");
+        printf(" 0. Quit/Exit\n");
+        printf("Selection: ");
+        scanf(" %d", &selection);
+
+        if (selection < 0 || selection > 2)
+        {
+            printf("\nERROR: Invalid menu selection.\n");
+            error = 1;
+            continue;
+        }
+
+        if (selection == 1)
+        {
+            filteredAmount = totalCost;
+
+            // totalMonthNumber = (int) ((filteredAmount * 100) / (netMonthlyIncome * 100));
+            totalMonthNumber = (filteredAmount) / (netMonthlyIncome);
+            yearNumber = (int)(totalMonthNumber / 12);
+
+            // calculate the remaining
+            monthsRemaining = (int)(totalMonthNumber) % 12;
+
+            if (((int)(totalMonthNumber * 100)) % 100 != 0)
+            {
+                monthsRemaining++;
+            }
+
+            for (i = 0; i < forecastQuantity; i++)
+            {
+                if (financeOptions[i] == 'y')
+                {
+                    showFinantialOptionNote = 1;
+                }
+            }
+
+            printf("\n====================================================\n");
+            printf("Filter:   All items\n");
+            printf("totalMonthNumber:   $%.2lf\n", totalMonthNumber);
+
+            printf("Amount:   $%.2lf\n", filteredAmount);
+            printf("Forecast: %d years, %d months\n", yearNumber, monthsRemaining);
+            if (showFinantialOptionNote)
+            {
+                printf("NOTE: Financing options are available on some items.\n");
+                printf("      You can likely reduce the estimated months.\n");
+            }
+            printf("====================================================\n");
+        }
+
+        if (selection == 2)
+        {
+
+            do
+            {
+                error = 0;
+                printf("\nWhat priority do you want to filter by? [1-3]: ");
+                scanf(" %d", &priority);
+
+                if (priority < 1 || priority > 3)
+                {
+                    printf("\nERROR: Invalid menu selection.\n");
+                    error = 1;
+                }
+
+            } while (error);
+
+            // filter by priority
+            for (i = 0; i < forecastQuantity; i++)
+            {
+                if (itemPriorities[i] == priority)
+                {
+                    filteredAmount += itemCosts[i];
+
+                    if (financeOptions[i] == 'y')
+                    {
+                        showFinantialOptionNote = 1;
+                    }
+                }
+            }
+
+            totalMonthNumber = filteredAmount / netMonthlyIncome;
+            yearNumber = (int)(totalMonthNumber / 12);
+
+            // calculate the remaining
+            monthsRemaining = (int)(totalMonthNumber) % 12;
+
+            if (((int)(totalMonthNumber * 100)) % 100 != 0)
+            {
+                monthsRemaining++;
+            }
+
+            printf("\n====================================================\n");
+            printf("Filter:   by priority (%d)\n", priority);
+            printf("Amount:   $%.2lf\n", filteredAmount);
+            printf("Forecast: %d years, %d months\n", yearNumber, monthsRemaining);
+            if (showFinantialOptionNote)
+            {
+                printf("NOTE: Financing options are available on some items.\n");
+                printf("      You can likely reduce the estimated months.\n");
+            }
+            printf("====================================================\n");
+        }
+
+    } while (error || selection);
+
+    printf("\nBest of luck in all your future endeavours!\n\n");
+
     return 0;
 }
