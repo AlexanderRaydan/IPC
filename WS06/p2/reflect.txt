@@ -15,3 +15,53 @@ shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+
+1. Why are there three types of iteration constructs if we can make any one of them behave the same way? Refer to your code in this workshop to help backup your answer (do NOT include the code in your answer). Typically, when working with arrays, there is one iteration construct we favour – what is it and explain why it is more preferred over the other options.
+
+Because each of the loops has a different purpose, when we know exactly how many iterations we want to do, we use the FOR loop, when the number of iterations depends on a condition to be fulfilled, we use the WHILE loop and in the case that the condition is to be evaluated at the end of the iteration, we use DO WHILE loop.
+
+I want to print numbers between 0 to 9, I will use the FOR loop because I have exactly how many iterations I have to do.
+
+for (i = 0; i <10; i++)
+    {
+        printf(“number: %d” , i);
+    }
+
+I want to use an umbrella if the weather is raining
+
+while(weather == ‘rain’)
+{
+   use_umbrella();
+}
+
+I want to create a menu and exit when the user introduces 0
+
+do{
+	printf(“Select one option”);
+	printf(“1. Show the result”);
+	printf(“0. Quit / Exit”);
+	printf("Selection: ");
+            scanf(" %d", &selection);
+
+} while(selection != 0);
+
+
+If we are using arrays is convenient to use the FOR loop because We always have the array size and this number is exactly the number of iterations that you need.
+
+
+2. Describe what you did to both test and debug your program. How did you go about finding where the problems were located (explain how you did this for both syntactic and semantic problems)?
+
+For syntactic and semantic errors my code editor indicates to me with a red line if there is a syntax problem in my code, in case I have one, I cannot execute the program, and the compiler also indicates with alerts or errors when compiling.
+
+For example, if I use a variable that does not exist or I misspell the name of the variable, the compiler and the code editor will indicate to me that there is an error in the line where I used that variable.
+
+
+When attempting to submit your work, you receive the following error feedback from the submitter:
+
+** Image **
+
+Using the above explicit information, explain each step you must take to successfully identify and fix your error.
+
+This problem is because I put a wrong input during the execution (567.89 instead of  0). I have to check what is the right input base of the pdf and execute the summit command into the matix again.

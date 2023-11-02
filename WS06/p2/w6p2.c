@@ -43,7 +43,7 @@ int main(void)
 
     int itemNumbers[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int itemPriorities[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    char financeOptions[10];
+    char financeOptions[MAX_FORECAST_ITM_NUMBER];
     double itemCosts[] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
     int error = 0;
@@ -80,7 +80,7 @@ int main(void)
 
         if (forecastQuantity < MIN_FORECAST_ITM_NUMBER || forecastQuantity > MAX_FORECAST_ITM_NUMBER)
         {
-            printf("ERROR: List is restricted to between %d and %d items.\n\n",
+            printf("ERROR: List is restricted to between %d and %d items.\n",
                    MIN_FORECAST_ITM_NUMBER, MAX_FORECAST_ITM_NUMBER);
             error = 1;
         }
@@ -187,21 +187,17 @@ int main(void)
             continue;
         }
 
+        if (selection == 0)
+        {
+            continue;
+        }
+
         if (selection == 1)
         {
             filteredAmount = totalCost;
 
-            // totalMonthNumber = (int) ((filteredAmount * 100) / (netMonthlyIncome * 100));
-            totalMonthNumber = (filteredAmount) / (netMonthlyIncome);
-            yearNumber = (int)(totalMonthNumber / 12);
-
-            // calculate the remaining
-            monthsRemaining = (int)(totalMonthNumber) % 12;
-
-            if (((int)(totalMonthNumber * 100)) % 100 != 0)
-            {
-                monthsRemaining++;
-            }
+            printf("\n====================================================\n");
+            printf("Filter:   All items\n");
 
             for (i = 0; i < forecastQuantity; i++)
             {
@@ -210,19 +206,6 @@ int main(void)
                     showFinantialOptionNote = 1;
                 }
             }
-
-            printf("\n====================================================\n");
-            printf("Filter:   All items\n");
-            printf("totalMonthNumber:   $%.2lf\n", totalMonthNumber);
-
-            printf("Amount:   $%.2lf\n", filteredAmount);
-            printf("Forecast: %d years, %d months\n", yearNumber, monthsRemaining);
-            if (showFinantialOptionNote)
-            {
-                printf("NOTE: Financing options are available on some items.\n");
-                printf("      You can likely reduce the estimated months.\n");
-            }
-            printf("====================================================\n");
         }
 
         if (selection == 2)
@@ -256,28 +239,29 @@ int main(void)
                 }
             }
 
-            totalMonthNumber = filteredAmount / netMonthlyIncome;
-            yearNumber = (int)(totalMonthNumber / 12);
-
-            // calculate the remaining
-            monthsRemaining = (int)(totalMonthNumber) % 12;
-
-            if (((int)(totalMonthNumber * 100)) % 100 != 0)
-            {
-                monthsRemaining++;
-            }
-
             printf("\n====================================================\n");
             printf("Filter:   by priority (%d)\n", priority);
-            printf("Amount:   $%.2lf\n", filteredAmount);
-            printf("Forecast: %d years, %d months\n", yearNumber, monthsRemaining);
-            if (showFinantialOptionNote)
-            {
-                printf("NOTE: Financing options are available on some items.\n");
-                printf("      You can likely reduce the estimated months.\n");
-            }
-            printf("====================================================\n");
         }
+
+        totalMonthNumber = (filteredAmount) / (netMonthlyIncome);
+        yearNumber = (int)(totalMonthNumber / 12);
+
+        // calculate the remaining
+        monthsRemaining = (int)(totalMonthNumber) % 12;
+
+        if (((int)((totalMonthNumber / 12) * 100)) % 100 != 0)
+        {
+            monthsRemaining++;
+        }
+
+        printf("Amount:   $%.2lf\n", filteredAmount);
+        printf("Forecast: %d years, %d months\n", yearNumber, monthsRemaining);
+        if (showFinantialOptionNote)
+        {
+            printf("NOTE: Financing options are available on some items.\n");
+            printf("      You can likely reduce the estimated months.\n");
+        }
+        printf("====================================================\n");
 
     } while (error || selection);
 

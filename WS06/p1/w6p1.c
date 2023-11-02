@@ -156,5 +156,6 @@ int main(void)
     printf("---- -------- -------- -----------\n");
     printf("                      $%11.2lf\n\n", totalCost);
     printf("Best of luck in all your future endeavours!\n\n");
+
     return 0;
 }
