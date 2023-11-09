@@ -12,6 +12,7 @@ void printChars(char ch, int howMany)
 }
 
 int positiveNumber(int number)
+// number = 5
 {
 	printf("number = %d\n", number);
 	printf("operation %d > 0 = %d\n", number, number > 0);

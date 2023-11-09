@@ -19,6 +19,7 @@ piece of work is entirely of my own creation.
 #define _CRT_SECURE_NO_WARNINGS
 #define NUMBER_OF_CAT_FOOD 3
 #define NUMBER_TEST_ARRAY_SIZE 3
+#define SERVIGING 64
 
 // System Libraries
 #include <stdio.h>
@@ -30,29 +31,30 @@ piece of work is entirely of my own creation.
 //    (return the number while also assigning it to the pointer argument)
 int getIntPositive(int *number)
 {
-    int *p;
-    int i = 0;
+
+    int value = 0;
+    int flag = 0;
+
+    do
+    {
+
+        flag = 0;
+
+        scanf("%d", &value);
+        if (value <= 0)
+        {
+            printf("ERROR: Enter a positive value: ");
+            flag = 1;
+        }
+
+    } while (flag);
 
     if (number != NULL)
     {
-        p = number;
+        *number = value;
     }
 
-    int numbers[] = {0, 0, 0};
-
-    scanf("%d %d %d", &numbers[0], &numbers[1], &numbers[2]);
-
-    for (i = 0; i < NUMBER_TEST_ARRAY_SIZE; i++)
-    {
-        if (numbers[i] > 0)
-        {
-            *p = numbers[i];
-            return *p;
-        }
-        printf("ERROR: Enter a positive value: ");
-    }
-
-    return *p;
+    return value;
 }
 
 // 2. Get user input of double type and validate for a positive non-zero number
@@ -60,29 +62,28 @@ int getIntPositive(int *number)
 double getDoublePositive(double *number)
 {
 
-    double *p;
-    int i = 0;
+    double value = 0;
+    int flag = 0;
+
+    do
+    {
+        flag = 0;
+
+        scanf("%lf", &value);
+        if (value <= 0)
+        {
+            printf("ERROR: Enter a positive value: ");
+            flag = 1;
+        }
+
+    } while (flag);
 
     if (number != NULL)
     {
-        p = number;
+        *number = value;
     }
 
-    double numbers[] = {0.0, 0.0, 0.0};
-
-    scanf("%lf %lf %lf", &numbers[0], &numbers[1], &numbers[2]);
-
-    for (i = 0; i < NUMBER_TEST_ARRAY_SIZE; i++)
-    {
-        if (numbers[i] > 0)
-        {
-            *p = numbers[i];
-            return *p;
-        }
-        printf("ERROR: Enter a positive value: ");
-    }
-
-    return *p;
+    return value;
 }
 
 // 3. Opening Message (include the number of products that need entering)
@@ -90,114 +91,31 @@ void openingMessage(void)
 {
 
     printf("Cat Food Cost Analysis\n");
-    printf("======================\n");
+    printf("======================\n\n");
     printf("Enter the details for %d dry food bags of product data for analysis.\n", NUMBER_OF_CAT_FOOD);
-    printf("NOTE: A 'serving' is 64g\n");
+    printf("NOTE: A 'serving' is %dg\n\n", SERVIGING);
 }
 
 // 4. Get user input for the details of cat food product
 void getCatFoodInfo(struct CatFoodInfo *product, int productNumber)
 {
 
-    int flag = 0;
-    int error = 0;
-
     printf("Cat Food Product #%d\n", productNumber);
     printf("--------------------\n");
 
-    do
-    {
-        flag = 0;
+    printf("SKU           : ");
+    getIntPositive(&product->sku);
 
-        if (!error)
-        {
-            printf("SKUOR         : ");
-        }
-        else
-        {
-            printf("ERROR: Enter a positive value: ");
-        }
+    printf("PRICE         : $");
+    getDoublePositive(&product->price);
 
-        scanf("%d", &product->sku);
+    printf("WEIGHT (LBS)  : ");
+    getDoublePositive(&product->weight);
 
-        if (product->sku <= 0)
-        {
-            flag = 1;
-            error = 1;
-        }
+    printf("CALORIES/SERV.: ");
+    getIntPositive(&product->caloriesPerServing);
 
-    } while (flag);
-    error = 0;
-
-    // Validate and prompt for price
-    do
-    {
-        flag = 0;
-        if (!error)
-        {
-            printf("PRICE ($)     : $");
-        }
-        else
-        {
-            printf("ERROR: Enter a positive value: $");
-        }
-        scanf("%lf", &product->price);
-
-        if (product->price <= 0)
-        {
-            flag = 1;
-            error = 1;
-        }
-
-    } while (flag);
-    error = 0;
-
-    // Validate and prompt for weight
-    do
-    {
-        flag = 0;
-        if (!error)
-        {
-            printf("WEIGHT (LBS)  : ");
-        }
-        else
-        {
-            printf("ERROR: Enter a positive value: ");
-        }
-        scanf("%lf", &product->weight);
-
-        if (product->weight <= 0)
-        {
-            flag = 1;
-            error = 1;
-        }
-
-    } while (flag);
-    error = 0;
-
-    // Validate and prompt for calories per serving
-    do
-    {
-        flag = 0;
-        if (!error)
-        {
-            printf("CALORIES/SERV.: ");
-        }
-        else
-        {
-            printf("ERROR: Enter a positive value: ");
-        }
-        scanf("%d", &product->caloriesPerServing);
-
-        if (product->caloriesPerServing <= 0)
-        {
-            flag = 1;
-            error = 1;
-        }
-
-    } while (flag);
-
-    printf("\n\n");
+    printf("\n");
 }
 
 // 5. Display the formatted table header
@@ -208,18 +126,13 @@ void displayCatFoodHeader(void)
 }
 
 // 6. Display a formatted record of cat food data
-void displayCatFoodData(struct CatFoodInfo catFoodArray[])
+void displayCatFoodData(const int sku, const double *price, const double *weight, const int caloriesPerServing)
 {
-    int i = 0;
-
-    for (; i < NUMBER_OF_CAT_FOOD; i++)
-    {
-        printf("%07d %10.2lf %10.1lf %8d\n",
-               catFoodArray[i].sku,
-               catFoodArray[i].price,
-               catFoodArray[i].weight,
-               catFoodArray[i].caloriesPerServing);
-    }
+    printf("%07d %10.2lf %10.1lf %8d\n",
+           sku,
+           *price,
+           *weight,
+           caloriesPerServing);
 }
 
 // 7. Logic entry point
@@ -236,5 +149,9 @@ void start(void)
     }
 
     displayCatFoodHeader();
-    displayCatFoodData(catFoodArray);
+
+    for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
+    {
+        displayCatFoodData(catFoodArray[i].sku, &catFoodArray[i].price, &catFoodArray[i].weight, catFoodArray[i].caloriesPerServing);
+    }
 }

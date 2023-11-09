@@ -1,7 +1,7 @@
 /*
 ////////////////////////////////////////////////////////////////////////////
 
-                          Workshop - #8 (P1)
+                          Workshop - #7 (P2)
 
 Full Name  : Alexander David Raydan Gonzalez
 Student ID#: 124348236
@@ -15,7 +15,6 @@ shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 ///////////////////////////////////////////////////////////////////////////
 */
-
 // ----------------------------------------------------------------------------
 // structures
 struct CatFoodInfo
@@ -48,6 +47,32 @@ void displayCatFoodData(const int sku, const double *price, const double *weight
 
 // 6. Display a formatted record of cat food data
 void displayCatFoodHeader(void);
+
+// ----------------------------------------------------------------------------
+// PART-2
+
+// 8. convert lbs: kg
+
+// 9. convert lbs: g
+
+// 10. convert lbs: kg / g
+
+// 11. calculate: servings based on gPerServ
+
+// 12. calculate: cost per serving
+
+// 13. calculate: cost per calorie
+
+// 14. Derive a reporting detail record based on the cat food product data
+
+// 15. Display the formatted table header for the analysis results
+void displayReportHeader(void);
+
+// 16. Display the formatted data row in the analysis table
+
+// 17. Display the findings (cheapest)
+
+// ----------------------------------------------------------------------------
 
 // 7. Logic entry point
 void start(void);

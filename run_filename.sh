@@ -1,4 +1,4 @@
-filename=$1
+filename=$*
 
 rm -f output
 

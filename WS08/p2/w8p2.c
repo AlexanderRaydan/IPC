@@ -18,388 +18,174 @@ piece of work is entirely of my own creation.
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#define MIN_PATH_LENGTH 10
-#define MAX_PATH_LENGTH 70
+#define _CRT_SECURE_NO_WARNINGS
+#define NUMBER_OF_CAT_FOOD 3
+#define NUMBER_TEST_ARRAY_SIZE 3
+#define SERVIGING 64
 
-#define MIN_MOVE 1
-
-#define POSITION_SIZE 5
-
+// System Libraries
 #include <stdio.h>
 
-struct PlayerConfiguration
-{
-    int lives;
-    int treasuresFound;
-    int movesRemaining;
-    char name;
-    char playerHistory[MAX_PATH_LENGTH + 1];
-};
+// User Libraries
+#include "w8p2.h"
 
-struct GameConfiguration
-{
-    int pathLength;
-    int numberOfMovements;
-    int bombPositionsArray[MAX_PATH_LENGTH];
-    int treasurePositionsArray[MAX_PATH_LENGTH];
-};
-
-int main(void)
+// 1. Get user input of int type and validate for a positive non-zero number
+//    (return the number while also assigning it to the pointer argument)
+int getIntPositive(int *number)
 {
 
-    struct PlayerConfiguration player;
-    struct GameConfiguration gameConfiguration;
-
-    printf("================================\n");
-    printf("         Treasure Hunt!\n");
-    printf("================================\n\n");
-
-    printf("PLAYER Configuration\n");
-    printf("--------------------\n");
-
-    int numLives;
+    int value = 0;
     int flag = 0;
 
-    // Player lives
+    do
+    {
 
-    printf("Enter a single character to represent the player: ");
-    scanf(" %c", &player.name);
+        flag = 0;
+
+        scanf("%d", &value);
+        if (value <= 0)
+        {
+            printf("ERROR: Enter a positive value: ");
+            flag = 1;
+        }
+
+    } while (flag);
+
+    if (number != NULL)
+    {
+        *number = value;
+    }
+
+    return value;
+}
+
+// 2. Get user input of double type and validate for a positive non-zero number
+//    (return the number while also assigning it to the pointer argument)
+double getDoublePositive(double *number)
+{
+
+    double value = 0;
+    int flag = 0;
+
     do
     {
         flag = 0;
 
-        printf("Set the number of lives: ");
-        scanf(" %d", &numLives);
-
-        if (numLives < 1 || numLives > 10)
+        scanf("%lf", &value);
+        if (value <= 0)
         {
-            printf("     Must be between 1 and 10!\n");
+            printf("ERROR: Enter a positive value: ");
             flag = 1;
         }
+
     } while (flag);
 
-    player.lives = numLives;
-
-    printf("Player configuration set-up is complete\n\n");
-
-    printf("GAME Configuration\n");
-    printf("------------------\n");
-
-    // Path length
-
-    int pathLength, numberOfMovements;
-
-    do
+    if (number != NULL)
     {
-        flag = 0;
+        *number = value;
+    }
 
-        printf("Set the path length (a multiple of %d between %d-%d): ", POSITION_SIZE, MIN_PATH_LENGTH, MAX_PATH_LENGTH);
-        scanf("%d", &pathLength);
+    return value;
+}
 
-        if (pathLength < MIN_PATH_LENGTH || pathLength > MAX_PATH_LENGTH || pathLength % POSITION_SIZE != 0)
-        {
-            printf("     Must be a multiple of %d and between %d-%d!!!\n", POSITION_SIZE, MIN_PATH_LENGTH, MAX_PATH_LENGTH);
-            flag = 1;
-        }
-    } while (flag);
+// 3. Opening Message (include the number of products that need entering)
+void openingMessage(void)
+{
 
-    gameConfiguration.pathLength = pathLength;
+    printf("Cat Food Cost Analysis\n");
+    printf("======================\n\n");
+    printf("Enter the details for %d dry food bags of product data for analysis.\n", NUMBER_OF_CAT_FOOD);
+    printf("NOTE: A 'serving' is %dg\n\n", SERVIGING);
+}
 
-    // Number of movements
+// 4. Get user input for the details of cat food product
+void getCatFoodInfo(struct CatFoodInfo *product, int productNumber)
+{
 
-    int minMovements = player.lives;
-    int maxMovements = gameConfiguration.pathLength * 0.75;
+    printf("Cat Food Product #%d\n", productNumber);
+    printf("--------------------\n");
 
-    do
-    {
-        flag = 0;
-        printf("Set the limit for number of moves allowed: ");
-        scanf("%d", &numberOfMovements);
+    printf("SKU           : ");
+    getIntPositive(&product->sku);
 
-        if (numberOfMovements < minMovements || numberOfMovements > maxMovements)
-        {
-            printf("    Value must be between %d and %d\n", minMovements, maxMovements);
-            flag = 1;
-        }
-    } while (flag);
+    printf("PRICE         : $");
+    getDoublePositive(&product->price);
 
-    gameConfiguration.numberOfMovements = numberOfMovements;
+    printf("WEIGHT (LBS)  : ");
+    getDoublePositive(&product->weight);
+
+    printf("CALORIES/SERV.: ");
+    getIntPositive(&product->caloriesPerServing);
 
     printf("\n");
-    printf("BOMB Placement\n");
-    printf("--------------\n");
-    printf("Enter the bomb positions in sets of %d where a value\n", POSITION_SIZE);
-    printf("of 1=BOMB, and 0=NO BOMB. Space-delimit your input.\n");
-    printf("(Example: 1 0 0 1 1) NOTE: there are %d to set!\n", gameConfiguration.pathLength);
+}
 
+// 5. Display the formatted table header
+void displayCatFoodHeader(void)
+{
+    printf("SKU         $Price    Bag-lbs Cal/Serv\n");
+    printf("------- ---------- ---------- --------\n");
+}
+
+// 6. Display a formatted record of cat food data
+void displayCatFoodData(const int sku, const double *price, const double *weight, const int caloriesPerServing)
+{
+    printf("%07d %10.2lf %10.1lf %8d\n",
+           sku,
+           *price,
+           *weight,
+           caloriesPerServing);
+}
+
+// ----------------------------------------------------------------------------
+// PART-2
+
+// 8. convert lbs: kg (divide by 2.20462)
+
+// 9. convert lbs: g (call convertKG, then * 1000)
+
+// 10. convert lbs: kg and g
+
+// 11. calculate: servings based on gPerServ
+
+// 12. calculate: cost per serving
+
+// 13. calculate: cost per calorie
+
+// 14. Derive a reporting detail record based on the cat food product data
+
+// 15. Display the formatted table header for the analysis results
+void displayReportHeader(void)
+{
+    printf("Analysis Report (Note: Serving = %dg\n", SERVIGING);
+    printf("---------------\n");
+    printf("SKU         $Price    Bag-lbs     Bag-kg     Bag-g Cal/Serv Servings  $/Serv   $/Cal\n");
+    printf("------- ---------- ---------- ---------- --------- -------- -------- ------- -------\n");
+}
+
+// 16. Display the formatted data row in the analysis table
+
+// 17. Display the findings (cheapest)
+
+// ----------------------------------------------------------------------------
+
+// 7. Logic entry point
+void start(void)
+{
     int i = 0;
+    struct CatFoodInfo catFoodArray[NUMBER_OF_CAT_FOOD];
 
-    for (i = 0; i < gameConfiguration.pathLength; i++)
+    openingMessage();
+
+    for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
     {
-
-        if (i % POSITION_SIZE == 0)
-        {
-            printf("   Positions [%2d-%2d]: ", i + 1, i + POSITION_SIZE);
-        }
-
-        scanf("%d", &gameConfiguration.bombPositionsArray[i]);
+        getCatFoodInfo(&catFoodArray[i], (i + 1));
     }
 
-    printf("BOMB placement set\n\n");
+    displayCatFoodHeader();
 
-    printf("TREASURE Placement\n");
-    printf("------------------\n");
-    printf("Enter the treasure placements in sets of %d where a value\n", POSITION_SIZE);
-    printf("of 1=TREASURE, and 0=NO TREASURE. Space-delimit your input.\n");
-    printf("(Example: 1 0 0 1 1) NOTE: there are %d to set!\n", gameConfiguration.pathLength);
-
-    for (i = 0; i < gameConfiguration.pathLength; i++)
+    for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
     {
-        if (i % POSITION_SIZE == 0)
-        {
-            printf("   Positions [%2d-%2d]: ", i + 1, i + POSITION_SIZE);
-        }
-        scanf("%d", &gameConfiguration.treasurePositionsArray[i]);
-        player.playerHistory[i] = '-';
+        displayCatFoodData(catFoodArray[i].sku, &catFoodArray[i].price, &catFoodArray[i].weight, catFoodArray[i].caloriesPerServing);
     }
-
-    player.playerHistory[MAX_PATH_LENGTH] = '\0';
-
-    printf("TREASURE placement set\n\n");
-
-    printf("GAME configuration set-up is complete...\n\n");
-
-    printf("------------------------------------\n");
-    printf("TREASURE HUNT Configuration Settings\n");
-    printf("------------------------------------\n");
-
-    printf("Player:\n");
-    printf("   Symbol     : %c\n", player.name);
-    printf("   Lives      : %d\n", player.lives);
-    printf("   Treasure   : [ready for gameplay]\n");
-    printf("   History    : [ready for gameplay]\n\n");
-
-    printf("Game:\n");
-    printf("   Path Length: %d\n", gameConfiguration.pathLength);
-    printf("   Bombs      : ");
-
-    for (i = 0; i < gameConfiguration.pathLength; i++)
-    {
-        printf("%d", gameConfiguration.bombPositionsArray[i]);
-    }
-
-    printf("\n");
-
-    printf("   Treasure   : ");
-
-    for (i = 0; i < gameConfiguration.pathLength; i++)
-    {
-        printf("%d", gameConfiguration.treasurePositionsArray[i]);
-    }
-
-    printf("\n\n");
-
-    printf("====================================\n");
-    printf("~ Get ready to play TREASURE HUNT! ~\n");
-    printf("====================================\n");
-
-    player.treasuresFound = 0;
-    player.movesRemaining = gameConfiguration.numberOfMovements;
-
-    int currentPosition = 0;
-    int nextMove = 0;
-    int caseCounter = 1;
-    int firstMove = 1;
-
-    while (player.lives > 0 && player.movesRemaining > 0)
-    {
-
-        // show current position
-
-        if (!firstMove)
-        {
-            printf("  ");
-            for (i = 1; i <= nextMove; i++)
-            {
-                if (i == nextMove)
-                {
-                    printf("%c", player.name);
-                }
-                else
-                {
-                    printf(" ");
-                }
-            }
-            firstMove = 0;
-        }
-
-        printf("\n");
-        // show player history
-        printf("  ");
-        for (i = 0; i < gameConfiguration.pathLength; i++)
-        {
-            printf("%c", player.playerHistory[i]);
-        }
-        printf("\n");
-
-        caseCounter = 1;
-        firstMove = 0;
-        printf("  ");
-
-        for (i = 0; i < gameConfiguration.pathLength; i++)
-        {
-
-            if ((i + 1) % 10 == 0)
-            {
-
-                printf("%d", caseCounter);
-                caseCounter++;
-            }
-            else
-            {
-                printf("|");
-            }
-        }
-        printf("\n");
-
-        caseCounter = 0;
-
-        printf("  ");
-        for (i = 0; i < gameConfiguration.pathLength; i++)
-        {
-            printf("%d", (i + 1) % 10);
-        }
-
-        printf("\n");
-
-        printf("+---------------------------------------------------+\n");
-        printf("  Lives: %2d  | Treasures: %2d  |  Moves Remaining: %2d\n", player.lives, player.treasuresFound, player.movesRemaining);
-        printf("+---------------------------------------------------+\n");
-
-        do
-        {
-            flag = 0;
-            printf("Next Move [%d-%d]: ", MIN_MOVE, gameConfiguration.pathLength);
-            scanf("%d", &nextMove);
-
-            if (nextMove < MIN_MOVE || nextMove > gameConfiguration.pathLength)
-            {
-                printf("  Out of Range!!!\n");
-                flag = 1;
-                continue;
-            }
-
-            currentPosition = nextMove - 1;
-
-        } while (flag);
-
-        printf("\n");
-
-        if (player.playerHistory[currentPosition] != '-')
-        {
-            printf("===============> Dope! You've been here before!\n\n");
-            continue;
-        }
-
-        player.movesRemaining--;
-
-        if (gameConfiguration.bombPositionsArray[currentPosition] == 1 && gameConfiguration.treasurePositionsArray[currentPosition] == 1)
-        {
-            printf("===============> [&] !!! BOOOOOM !!! [&]\n");
-            printf("===============> [&] $$$ Life Insurance Payout!!! [&]\n");
-            player.playerHistory[currentPosition] = '&';
-            player.treasuresFound++;
-            player.lives--;
-        }
-        else if (gameConfiguration.bombPositionsArray[currentPosition] == 1)
-
-        {
-            printf("===============> [!] !!! BOOOOOM !!! [!]\n");
-            player.lives--;
-            player.playerHistory[currentPosition] = '!';
-        }
-        else if (gameConfiguration.treasurePositionsArray[currentPosition] == 1)
-        {
-            printf("===============> [$] $$$ Found Treasure! $$$ [$]\n");
-            player.treasuresFound++;
-            player.playerHistory[currentPosition] = '$';
-        }
-        else
-        {
-            printf("===============> [.] ...Nothing found here... [.]\n");
-            player.playerHistory[currentPosition] = '.';
-        }
-
-        printf("\n");
-    }
-
-    printf("No more LIVES remaining!\n");
-    printf("\n");
-
-    // show current position
-    printf("  ");
-    for (i = 1; i <= nextMove; i++)
-    {
-        if (i == nextMove)
-        {
-            printf("%c", player.name);
-        }
-        else
-        {
-            printf(" ");
-        }
-    }
-    printf("\n");
-    // show player history
-    printf("  ");
-    for (i = 0; i < gameConfiguration.pathLength; i++)
-    {
-        printf("%c", player.playerHistory[i]);
-    }
-    printf("\n");
-
-    caseCounter = 1;
-    firstMove = 0;
-    printf("  ");
-
-    for (i = 0; i < gameConfiguration.pathLength; i++)
-    {
-
-        if ((i + 1) % 10 == 0)
-        {
-
-            printf("%d", caseCounter);
-            caseCounter++;
-        }
-        else
-        {
-            printf("|");
-        }
-    }
-    printf("\n");
-
-    caseCounter = 0;
-
-    printf("  ");
-    for (i = 0; i < gameConfiguration.pathLength; i++)
-    {
-        printf("%d", (i + 1) % 10);
-    }
-
-    printf("\n");
-
-    printf("+---------------------------------------------------+\n");
-    printf("  Lives: %2d  | Treasures: %2d  |  Moves Remaining: %2d\n", player.lives, player.treasuresFound, player.movesRemaining);
-    printf("+---------------------------------------------------+\n");
-
-    printf("\n");
-
-    printf("##################\n");
-    printf("#   Game over!   #\n");
-    printf("##################\n");
-    printf("\n");
-
-    printf("You should play again and try to beat your score!\n");
-
-    return 0;
 }

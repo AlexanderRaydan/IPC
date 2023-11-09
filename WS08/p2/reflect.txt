@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
                               Reflection
-                             Workshop - #7
+                             Workshop - #8
 
 Full Name  : Alexander David Raydan Gonzalez
 Student ID#: 124348236
@@ -15,58 +15,4 @@ shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 
 ///////////////////////////////////////////////////////////////////////////
-
-
-1. Were you successful in coding non-repetitive sections of logic in the game 
-play portion of this workshop (drawing of the ruler, board, player position, etc.)? 
-If so, how did you accomplish this (don’t provide your code in your answer)? 
-If not, why? Explain precisely what you struggled with and refer to the logic of 
-the workshop to justify your answer.
-
-
-I have not been able to code non-repetitive logic because I cannot use functions, 
-which allow me to reuse the code in different parts without repeating the logic, 
-in the case of this workshop, I had to copy and paste the same logic in different 
-parts of the main process.
-
-
-
-2. Explain how the use of structures simplified your program. Provide proof of your 
-argument by contrasting the alternatives – do not include code in your answer – you 
-must explain in simple terms the impact the concept of structures has in our programming 
-strategies.
-
-Structures simplify the code because in a single variable I have different attributes 
-that I can use without needing to create new variables, making the code more readable, 
-maintainable and tidy.
-
-
-
-3. Examine your code and determine the maximum number of levels of nesting (deepest) 
-you ended up using in your program logic. Provide a simple indented outline that 
-illustrates your answer (copy only the construct line for each level and do not 
-include all the code within unless there is another nested construct).
-
-There are 2 levels of nesting in this part of my code.
-
-there is a "if" inside of a "for" inside of a "while"
-
-while (player.lives > 0 && player.movesRemaining > 0)
-    {
-
-        printf("  ");
-        for (i = 0; i < gameConfiguration.pathLength; i++)
-        {
-            if (i == currentPosition && !firstMove)
-            {
-                ...
-            }
-            else
-            {
-                printf(" ");
-            }
-        }
-    ...
-
-    }
 
