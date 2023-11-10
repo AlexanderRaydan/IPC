@@ -97,25 +97,29 @@ void openingMessage(void)
 }
 
 // 4. Get user input for the details of cat food product
-void getCatFoodInfo(struct CatFoodInfo *product, int productNumber)
+struct CatFoodInfo getCatFoodInfo(int productNumber)
 {
+
+    struct CatFoodInfo product;
 
     printf("Cat Food Product #%d\n", productNumber);
     printf("--------------------\n");
 
     printf("SKU           : ");
-    getIntPositive(&product->sku);
+    getIntPositive(&product.sku);
 
     printf("PRICE         : $");
-    getDoublePositive(&product->price);
+    getDoublePositive(&product.price);
 
     printf("WEIGHT (LBS)  : ");
-    getDoublePositive(&product->weight);
+    getDoublePositive(&product.weight);
 
     printf("CALORIES/SERV.: ");
-    getIntPositive(&product->caloriesPerServing);
+    getIntPositive(&product.caloriesPerServing);
 
     printf("\n");
+
+    return product;
 }
 
 // 5. Display the formatted table header
@@ -145,7 +149,7 @@ void start(void)
 
     for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
     {
-        getCatFoodInfo(&catFoodArray[i], (i + 1));
+        catFoodArray[i] = getCatFoodInfo(i + 1);
     }
 
     displayCatFoodHeader();

@@ -15,6 +15,16 @@ shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 ///////////////////////////////////////////////////////////////////////////
 */
+
+// ----------------------------------------------------------------------------
+// defines/macros
+#define LBS_TO_KG 2.20462
+#define G_TO_KG 1000
+
+#define NUMBER_OF_CAT_FOOD 3
+#define NUMBER_TEST_ARRAY_SIZE 3
+#define SERVIGING 64
+
 // ----------------------------------------------------------------------------
 // structures
 struct CatFoodInfo
@@ -23,6 +33,19 @@ struct CatFoodInfo
     double price;
     double weight;
     int caloriesPerServing;
+};
+
+struct ReportData
+{
+    int sku;
+    double price;
+    int caloriesPerServing;
+    double weightLbs;
+    double weightKg;
+    int weightGrm;
+    double totalServing;
+    double costPerServing;
+    double costPerCal;
 };
 
 // ----------------------------------------------------------------------------
@@ -37,10 +60,10 @@ int getIntPositive(int *number);
 double getDoublePositive(double *number);
 
 // 3. Opening Message (include the number of products that need entering)
-void openingMessage(void);
+void openingMessage(const int numberOfProducts);
 
 // 4. Get user input for the details of cat food product
-void getCatFoodInfo(struct CatFoodInfo *product, int productNumber);
+struct CatFoodInfo getCatFoodInfo(const int productNumber);
 
 // 5. Display the formatted table header
 void displayCatFoodData(const int sku, const double *price, const double *weight, const int caloriesPerServing);
@@ -52,10 +75,13 @@ void displayCatFoodHeader(void);
 // PART-2
 
 // 8. convert lbs: kg
+double convertLbsKg(const double *lbs, double *result);
 
 // 9. convert lbs: g
+int convertLbsG(const double *lbs, int *result);
 
 // 10. convert lbs: kg / g
+void convertLbs(const double *lbs, double *kgResult, int *gResult);
 
 // 11. calculate: servings based on gPerServ
 

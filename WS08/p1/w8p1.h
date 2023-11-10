@@ -41,7 +41,7 @@ double getDoublePositive(double *number);
 void openingMessage(void);
 
 // 4. Get user input for the details of cat food product
-void getCatFoodInfo(struct CatFoodInfo *product, int productNumber);
+struct CatFoodInfo getCatFoodInfo(int productNumber);
 
 // 5. Display the formatted table header
 void displayCatFoodData(const int sku, const double *price, const double *weight, const int caloriesPerServing);
