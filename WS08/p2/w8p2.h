@@ -84,19 +84,25 @@ int convertLbsG(const double *lbs, int *result);
 void convertLbs(const double *lbs, double *kgResult, int *gResult);
 
 // 11. calculate: servings based on gPerServ
+double calculateServings(const int servingGrams, const int weightGrm, double *serving);
 
 // 12. calculate: cost per serving
+double calculateCostPerServing(const double *price, const double *totalService, double *costPerServing);
 
 // 13. calculate: cost per calorie
+double calculateCostPerCal(const double *price, const int *cal, const double *totalService, double *costPerCal);
 
 // 14. Derive a reporting detail record based on the cat food product data
+struct ReportData calculateReportData(const struct CatFoodInfo product);
 
 // 15. Display the formatted table header for the analysis results
 void displayReportHeader(void);
 
 // 16. Display the formatted data row in the analysis table
+void displayReportData(const struct ReportData report, const int isChepest);
 
 // 17. Display the findings (cheapest)
+void diplayFinalAnalysis(const struct ReportData product);
 
 // ----------------------------------------------------------------------------
 

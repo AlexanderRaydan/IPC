@@ -16,3 +16,49 @@ piece of work is entirely of my own creation.
 
 ///////////////////////////////////////////////////////////////////////////
 
+
+
+Reflection 8 
+
+1. Several helper functions were designed to return values in two different ways 
+(via an argument and/or by return). Explain at least one benefit of this “feature” 
+and how it increases usability/flexibility and at least one negative reason why 
+having functions designed to work in this way may not be desirable.
+
+Flexibility:
+Users can choose whether to get the result through the function's return value or
+via an output parameter, providing flexibility based on their specific needs.
+
+Confusion:
+Having both ways to get the result might confuse users, leading to potential 
+mistakes in how the function is used.
+
+
+2. According to the design principles for structured design, functions should be 
+highly cohesive and have low coupling. Identify one function in the workshop that 
+demonstrates less than perfect cohesion, and one function that demonstrates coupling
+that could be improved. For each identified function, briefly explain what you would do to improve them.
+
+getIntPositive and getDoublePositive function:
+
+Both functions are highly cohesive because they are responsible for getting positive
+input of a specific type. They focus on a single task and have a clear responsibility.
+
+start function:
+
+While this function orchestrates the overall logic, it interacts with other functions 
+in a way that demonstrates low coupling. It calls various functions for specific tasks without tightly coupling the functionalities.
+
+
+3. What advantages are there in passing structures to functions? Based on your readings
+this week (for next week’s topics) what could be done in the passing of this data to 
+functions to make it more efficient? Explain how the “displayCatfoodData” function could be improved.
+
+You just need to send one variable (CatFoodInfo product) and you will get all the attributes 
+of this structure instead of passing one variable per attribute (in this case 9 attributes). 
+In this way, your function is simple and easy to use.
+
+
+
+
+

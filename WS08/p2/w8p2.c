@@ -168,22 +168,13 @@ int convertLbsG(const double *lbs, int *result)
 }
 
 // 10. convert lbs: kg and g
-
 void convertLbs(const double *lbs, double *kgResult, int *gResult)
 {
-    if (kgResult != NULL)
-    {
-        *kgResult = convertLbsKg(lbs, kgResult);
-    }
-
-    if (gResult != NULL)
-    {
-        *gResult = convertLbsG(lbs, gResult);
-    }
+    convertLbsKg(lbs, kgResult);
+    convertLbsG(lbs, gResult);
 }
 
 // 11. calculate: servings based on gPerServ
-
 double calculateServings(const int servingGrams, const int weightGrm, double *serving)
 {
     double value = ((double)weightGrm / servingGrams);
@@ -198,13 +189,13 @@ double calculateServings(const int servingGrams, const int weightGrm, double *se
 
 // 12. calculate: cost per serving
 
-double calculateCostPerServing(const double *price, const double *totalService, double *CostPerServing)
+double calculateCostPerServing(const double *price, const double *totalService, double *costPerServing)
 {
     double value = *price / *totalService;
 
-    if (CostPerServing != NULL)
+    if (costPerServing != NULL)
     {
-        *CostPerServing = value;
+        *costPerServing = value;
     }
 
     return value;
@@ -234,8 +225,7 @@ struct ReportData calculateReportData(const struct CatFoodInfo product)
     report.caloriesPerServing = product.caloriesPerServing;
     report.weightLbs = product.weight;
 
-    convertLbsKg(&product.weight, &report.weightKg);
-    convertLbsG(&product.weight, &report.weightGrm);
+    convertLbs(&product.weight, &report.weightKg, &report.weightGrm);
 
     calculateServings(SERVIGING, report.weightGrm, &report.totalServing);
     calculateCostPerServing(&product.price, &report.totalServing, &report.costPerServing);
@@ -247,7 +237,7 @@ struct ReportData calculateReportData(const struct CatFoodInfo product)
 // 15. Display the formatted table header for the analysis results
 void displayReportHeader(void)
 {
-    printf("Analysis Report (Note: Serving = %dg\n", SERVIGING);
+    printf("Analysis Report (Note: Serving = %dg)\n", SERVIGING);
     printf("---------------\n");
     printf("SKU         $Price    Bag-lbs     Bag-kg     Bag-g Cal/Serv Servings  $/Serv   $/Cal\n");
     printf("------- ---------- ---------- ---------- --------- -------- -------- ------- -------\n");
@@ -269,7 +259,7 @@ void displayReportData(const struct ReportData report, const int isChepest)
            report.costPerServing,
            report.costPerCal);
 
-    if (isChepest)
+    if (isChepest == 1)
     {
         printf(" ***");
     }
@@ -306,8 +296,6 @@ void start(void)
         reportArray[i] = calculateReportData(catFoodArray[i]);
     }
 
-    printf("\n");
-
     displayCatFoodHeader();
 
     for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
@@ -334,10 +322,8 @@ void start(void)
 
     for (i = 0; i < NUMBER_OF_CAT_FOOD; i++)
     {
-        displayReportData(reportArray[i], i == cheapestServiceIndex);
+        displayReportData(reportArray[i], (i == cheapestServiceIndex));
     }
-
-    printf("\n");
 
     diplayFinalAnalysis(reportArray[cheapestServiceIndex]);
 }
